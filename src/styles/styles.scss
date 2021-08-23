@@ -127,7 +127,7 @@ body {
 		
 		@media(max-width: 767px) {
 			display: block;
-			width: 167px;
+			width: 200px;
 			margin: 0 auto;
 		}
 		
@@ -141,6 +141,10 @@ body {
 		font-size: 30px;
 		color: #313131;
 		
+		@media(max-width: 767px) {
+			text-align: center;
+		}
+				
 		img {
 			width: 25px;
 			margin-left: 3px;

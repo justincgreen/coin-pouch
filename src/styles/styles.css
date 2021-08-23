@@ -101,7 +101,7 @@ body h1, body h2, body h3, body h4, body h5, body h6 {
 @media (max-width: 767px) {
   .main-header .logo-link {
     display: block;
-    width: 167px;
+    width: 200px;
     margin: 0 auto;
   }
 }
@@ -112,6 +112,11 @@ body h1, body h2, body h3, body h4, body h5, body h6 {
   font-family: "Lobster", cursive;
   font-size: 30px;
   color: #313131;
+}
+@media (max-width: 767px) {
+  .main-header .logo {
+    text-align: center;
+  }
 }
 .main-header .logo img {
   width: 25px;
