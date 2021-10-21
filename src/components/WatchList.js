@@ -19,7 +19,7 @@ const WatchList = ({watchlist, setWatchlist, searchDisplay, setSearchDisplay}) =
 			<div className="container">
 				<h3>Watchlist</h3>
 				{watchlist.length === 0 && (
-					<p>There are currently no coins in your watchlist</p>
+					<p className="message">There are currently no coins in your watchlist</p>
 				)}
 				
 				{
