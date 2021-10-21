@@ -74,11 +74,15 @@ const Header = ({search, setSearch, searchDisplay, setSearchDisplay, darkMode, s
 								</p>
 							</>
 						)}			
-					</div>
+					</div>										
 					
 					<div className="theme-select" onClick={handleClick}>
 						<i className="material-icons sun-icon">light_mode</i>
 						<i className="material-icons moon-icon">nightlight_round</i>
+					</div>
+					
+					<div className="watchlist-link">
+						<Link to="/watchlist">Watchlist</Link>
 					</div>
 				</div>
 			</div>

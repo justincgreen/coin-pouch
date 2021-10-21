@@ -4,16 +4,16 @@ import btcLoader from '../images/btc-loader.gif';
 import {Line} from 'react-chartjs-2';
 
 
-const CoinDetails = ({isLoading, setIsLoading, searchDisplay, setSearchDisplay, error, setError}) => {
+const CoinDetails = ({isLoading, setIsLoading, searchDisplay, setSearchDisplay, error, setError, watchlist, setWatchlist}) => {
 	const {id} = useParams();
 	const [coinDetails, setCoinDetails] = useState([]);	
-	const [detailsLoading, setDetailsLoading] = useState(true);
+	const [detailsLoading, setDetailsLoading] = useState(true);		
 	
 	useEffect(() => {
 		fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${id}&price_change_percentage=1h,24h,7d,14d,30d,1y&sparkline=true`)
 		.then(response => response.json())
 		.then(coinInfo => {
-			setCoinDetails(coinInfo)
+			setCoinDetails(coinInfo);
 			setDetailsLoading(false);
 			setSearchDisplay(false);
 			setError('');
@@ -28,16 +28,31 @@ const CoinDetails = ({isLoading, setIsLoading, searchDisplay, setSearchDisplay, 
 			
 			coinRangePercentage.forEach(percentage => {
 				if(percentage.innerHTML.includes('-')) {
-				percentage.classList.add('coin-range-percentage-red');
+					percentage.classList.add('coin-range-percentage-red');
 				}
-			  });
+			});
+			
+			// on page load, check if the coin id already exists in the watchlist array
+			// if it does give the star icon an active class and give the star outline the is-hidden class
+			const coinMatch = watchlist.some(item => item.id === coinInfo[0].id);
+						
+			if(coinMatch === true) {
+				const starBorder = document.querySelector('.star-border-icon');
+				const starFill = document.querySelector('.star-icon');		
+				const watchListText = document.querySelector('.watchlist-info-text');	
+				
+				starFill.classList.add('active');
+				starBorder.classList.add('is-hidden');			
+				watchListText.innerHTML = 'Watching';
+			}
+			
 		})
 		.catch(error => {
 			setError('There was a problem, try refreshing the page!');
 		});  
 				
-		setIsLoading(true);		
-	},[id, setIsLoading, setSearchDisplay, setError]);
+		setIsLoading(true);							
+	},[id, setIsLoading, setSearchDisplay, setError, watchlist]);
 	
 	return (
 		<div className="coin-details">
@@ -57,7 +72,7 @@ const CoinDetails = ({isLoading, setIsLoading, searchDisplay, setSearchDisplay, 
 													<br />
 													<img src={coin.image} alt={coin.name} className="coin-details-img" /> 
 													{coin.name} 
-													<span className="badge badge-light coin-details-symbol">{coin.symbol.toUpperCase()}</span>									
+													<span className="badge badge-light coin-details-symbol">{coin.symbol.toUpperCase()}</span>														
 												</h3>											
 												<h2 className="coin-price">
 													${coin.current_price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 6})}
@@ -65,6 +80,60 @@ const CoinDetails = ({isLoading, setIsLoading, searchDisplay, setSearchDisplay, 
 														{coin.price_change_percentage_24h.toLocaleString('en-US', {maximumFractionDigits: 1})}&#37;
 													</span>
 												</h2>
+												
+												<div className="watchlist-info" onClick={() => {
+													const starBorder = document.querySelector('.star-border-icon');
+													const starFill = document.querySelector('.star-icon');		
+													const watchListText = document.querySelector('.watchlist-info-text');		
+													
+													if(starFill.classList.contains('active')) {
+														starBorder.classList.remove('is-hidden');
+														starFill.classList.remove('active');
+														watchListText.innerHTML = 'Add to watchlist';
+														
+														// remove coin from array when removed from watchlist
+														const filterItems = watchlist.filter((element, index) => {
+														  return element.id !== coin.id;		  
+														});
+														setWatchlist(filterItems);
+														localStorage.setItem('watchlist', JSON.stringify(filterItems));							
+													}else {
+														starFill.classList.add('active');
+														starBorder.classList.add('is-hidden');			
+														watchListText.innerHTML = 'Watching';
+														
+														// check if coin already exists in watchlist
+														// if the coin doesn't exist, add it to the watchlist
+														const foundCoin = watchlist.some(item => item.id === coin.id);
+														
+														if(foundCoin === false) {
+															const watchingCoin = {
+																id: coin.id,
+																name: coin.name,
+																image: coin.image,
+																symbol: coin.symbol.toUpperCase(),
+																price: coin.current_price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 6}),
+																priceChange24hr: coin.price_change_percentage_24h_in_currency.toFixed(1),
+																priceChange7d: 	coin.price_change_percentage_7d_in_currency.toFixed(1),
+																marketCap: coin.market_cap.toLocaleString(),
+																totalVolume: coin.total_volume.toLocaleString(),
+																marketCapRank: coin.market_cap_rank,
+																watching: true	
+															}
+															
+															const watchlistUpdated = [...watchlist, watchingCoin];	
+															setWatchlist(watchlistUpdated);
+															
+															localStorage.setItem('watchlist', JSON.stringify(watchlistUpdated));
+														}												
+													}																												
+												}}>
+													<span className="watchlist-info-text">Add to watchlist</span>
+													<span className="badge badge-light">
+														<i className="material-icons star-border-icon">star_border</i>	
+														<i className="material-icons star-icon">star</i>	
+													</span>
+												</div>	
 												
 												<div className="row">
 													<div className="col-md-6">

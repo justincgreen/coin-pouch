@@ -33,8 +33,14 @@ body h1, body h2, body h3, body h4, body h5, body h6 {
 .dark-mode .coin-details p {
   border-color: #696969;
 }
+.dark-mode .coin-details .watchlist-info-text {
+  color: #fff;
+}
 .dark-mode .coin-details .coin-stats-panel {
   background-color: #3b4354 !important;
+}
+.dark-mode .watchlist h3 {
+  border-color: #696969;
 }
 .dark-mode .error,
 .dark-mode .scroll-top .material-icons,
@@ -88,6 +94,28 @@ body h1, body h2, body h3, body h4, body h5, body h6 {
 }
 .header-top .theme-select .moon-icon.active {
   display: none;
+}
+.header-top .watchlist-link {
+  float: right;
+  margin-right: 10px;
+  font-size: 14px;
+  position: relative;
+  top: 7px;
+}
+@media (max-width: 410px) {
+  .header-top .watchlist-link {
+    top: 15px;
+    left: 15px;
+    font-size: 12px;
+    z-index: 10;
+  }
+}
+.header-top .watchlist-link a {
+  color: #16c784;
+}
+.header-top .watchlist-link a:hover {
+  color: #16c784;
+  text-decoration: none;
 }
 
 .main-header {
@@ -243,6 +271,27 @@ body h1, body h2, body h3, body h4, body h5, body h6 {
 .coin-details .coin-details-percentage-down {
   background-color: #ea3943;
 }
+.coin-details .watchlist-info {
+  font-size: 16px;
+}
+.coin-details .watchlist-info .watchlist-info-text {
+  margin-right: 10px;
+  position: relative;
+  top: -7px;
+}
+.coin-details .watchlist-info .badge {
+  cursor: pointer;
+}
+.coin-details .watchlist-info .star-border-icon.is-hidden {
+  display: none;
+}
+.coin-details .watchlist-info .star-icon {
+  color: #ffc107;
+  display: none;
+}
+.coin-details .watchlist-info .star-icon.active {
+  display: block;
+}
 .coin-details .coin-gains-losses {
   margin: 20px 0;
 }
@@ -263,6 +312,28 @@ body h1, body h2, body h3, body h4, body h5, body h6 {
 }
 .coin-details .sm {
   font-size: 12px;
+}
+
+.watchlist {
+  padding: 30px 0;
+}
+.watchlist h3 {
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 10px;
+  margin-bottom: 0;
+}
+.watchlist .table thead th {
+  border: none;
+}
+@media (max-width: 767px) {
+  .watchlist .table td {
+    vertical-align: middle;
+  }
+}
+@media (max-width: 767px) {
+  .watchlist .table {
+    font-size: 16px;
+  }
 }
 
 .scroll-top {
