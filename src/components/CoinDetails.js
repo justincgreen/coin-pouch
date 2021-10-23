@@ -51,8 +51,13 @@ const CoinDetails = ({isLoading, setIsLoading, searchDisplay, setSearchDisplay, 
 			setError('There was a problem, try refreshing the page!');
 		});  
 				
-		setIsLoading(true);							
+		setIsLoading(true);										
 	},[id, setIsLoading, setSearchDisplay, setError, watchlist]);
+	
+	useEffect(() => {
+		// Make sure window is at the top of page when navigating to a new route
+		window.scrollTo(0, 0);
+	},[]);
 	
 	return (
 		<div className="coin-details">
