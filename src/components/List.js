@@ -86,8 +86,6 @@ const List = ({data, setData, isLoading, setIsLoading, searchDisplay, setSearchD
 					</div>
 				</div>
 			)}
-			
-			
 		</div>
 	)
 }

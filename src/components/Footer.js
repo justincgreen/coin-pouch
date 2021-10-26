@@ -1,4 +1,3 @@
-
 const Footer = () => {
 	return (
 		<footer className="footer">
@@ -8,7 +7,7 @@ const Footer = () => {
 				Built by <a href="https://www.justingreen.dev/" target="_blank" rel="noreferrer">Justin Green</a>
 			</div>
 		</footer>
-	)
-}
+		)
+	}
 
 export default Footer;
