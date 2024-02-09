@@ -66,7 +66,7 @@ const List = ({data, setData, isLoading, setIsLoading, searchDisplay, setSearchD
 													<td>${coin.current_price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 6})}</td>
 													<td>
 														<span className="coin-percentage">
-															{/* {coin.price_change_percentage_24h.toFixed(1)}&#37; */}
+															{/* {coin.price_change_percentage_24h.toFixed(1)}&#37; error happening here*/}
 															{coin.price_change_percentage_24h}&#37;
 														</span>
 													</td>
